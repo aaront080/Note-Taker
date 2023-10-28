@@ -25,15 +25,31 @@ app.get('/notes', (req, res) => {
 });
 
 //route of * should return index.html 
-app.get('*', (req,res) => {
+app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '/public/index.html'));
 });
 
 
 
+const writeToFile = (destination, content) => 
+    fs.writeFile(destination, JSON.stringify(content, null, 4), (err) =>
+        err ? console.error(err) : console.info(`\nData written to ${destination}`))
+
+const readAndAppend = (content, file) => {
+    fs.readFile(file, 'utf8', (err, data) => {
+        if(err) {
+            console.log(err);
+        } else {
+            const parsedDate = JSON.parse(data);
+            parsedDate.push(content);
+            writeToFile(file, parsedDate);
+        }
+    })
+}
+
 
 app.get('/api/notes', (req,res) => {
-    fs.readFile('./Develop/db/db.json', 'uft8', (err, data) => {
+    fs.readFile('./db/db.json', 'uft8', (err, data) => {
         if (err) {
             console.error(err);
         } else {
@@ -50,7 +66,7 @@ app.get('/api/notes', (req,res) => {
 app.post('/api/notes', (req,res) => {
     console.log(`${req.method} request has been received`);
     const { title, text } = req.body;
-    if (title && text) {
+    if (req.body) {
         const newNote = {
             title,
             text,
@@ -59,19 +75,26 @@ app.post('/api/notes', (req,res) => {
 
         readAndAppend(newNote, './db/db.json');
 
-        const response = {
-            status: 'sucess',
-            body: newNote,
-        };
-
-        res.json(response);
+        res.json('Note added!');
         } else {
-            res.json('Error in post note');
+        res.json('Error in post note');
         }
-    })
+    }) 
  
 
-
+/* app.post('/api/notes', (req, res) => {
+    let db = fs.readFileSync('db/db.json');
+    db = JSON.parse(db);
+    res.json(db);
+    let note = {
+        title: req.body.title,
+        text: req.body.text,
+        id: uuidv4(),
+    };
+    db.push(note);
+    fs.writeFileSync('db/db.json', JSON.stringify(db));
+    res.json(db);
+}) */
 
 app.listen(PORT, () =>
 console.log(`App listening at http://localhost:${PORT}` ));
