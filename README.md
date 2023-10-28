@@ -21,12 +21,13 @@ The user is able to generate a reminder notes in the web application user interf
 The Note Taker application can be accessed [here.](https://simple-note-taker-app-0acf0b15ba29.herokuapp.com/)
 
 ## Usage
-Anyone that wants to generate a logo can utilize application.
 
-![Walkthrough to logo generator](https://github.com/aaront080/SVG-logo-generator/assets/143736506/8805a64b-a157-4fb9-a7ad-15c1627bb858)
+Anyone that wants to keep a working notes list can utilize application.
 
+![Untitled_ Oct 27, 2023 9_40 PM](https://github.com/aaront080/Note-Taker/assets/143736506/74c4753a-69a1-497f-8c1f-9cd7436ebd07)
 
-Click this image to see a walkthrough of this application!
+Video shows the functionality of generating a unique ID.
+
 
 ## Contributing
 
