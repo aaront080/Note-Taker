@@ -12,10 +12,10 @@ app.use(express.static('public'));
 
 //middleware code
 app.use(express.json());
-app.use(express.urlencoded({ extended: true}));
+app.use(express.urlencoded({ extended: true }));
 
 
-// route to home page
+//route to home page
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '/public/index.html'));
 });
@@ -62,7 +62,7 @@ app.get('/api/notes', (req, res) => {
       const newNote = {
         title,
         text,
-        review_id: uuidv4(),
+        id: uuidv4(),
       };
   
       // Obtain existing notes
@@ -79,8 +79,7 @@ app.get('/api/notes', (req, res) => {
           db.push(newNote)
   
           // Write updated notes back to the file
-          fs.writeFile(
-            './db/db.json',
+          fs.writeFile( './db/db.json',
             JSON.stringify(parsedNotes, null, 4),
             (writeErr) =>
               writeErr
